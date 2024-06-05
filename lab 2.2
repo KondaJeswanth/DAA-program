@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main() {
+  int num, sum = 0, i;
+
+  printf("Enter a positive integer: ");
+  scanf("%d", &num);
+
+  // Handle negative or zero input
+  if (num <= 0) {
+    printf("%d is not a valid input for a perfect number.\n", num);
+    return 1;
+  }
+
+  // Find the sum of divisors (excluding the number itself)
+  for (i = 1; i < num; i++) {
+    if (num % i == 0) {
+      sum += i;
+    }
+  }
+
+  // Check if the sum of divisors is equal to the number
+  if (sum == num) {
+    printf("%d is a perfect number.\n", num);
+  } else {
+    printf("%d is not a perfect number.\n", num);
+  }
+
+  return 0;
+}
