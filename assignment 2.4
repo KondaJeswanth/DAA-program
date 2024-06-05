@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+// Function to find the minimum length string in the array
+int findMinLength(char** strs, int strsSize) {
+    int minLength = strlen(strs[0]);
+    for (int i = 1; i < strsSize; i++) {
+        int length = strlen(strs[i]);
+        if (length < minLength) {
+            minLength = length;
+        }
+    }
+    return minLength;
+}
+char* longestCommonPrefix(char** strs, int strsSize) {
+    if (strsSize == 0) {
+        return "";
+    }
+    int minLength = findMinLength(strs, strsSize);
+    static char prefix[201];
+    int prefixLength = 0;
+    for (int i = 0; i < minLength; i++) {
+        char currentChar = strs[0][i];
+        for (int j = 1; j < strsSize; j++) {
+            if (strs[j][i] != currentChar) {
+                prefix[prefixLength] = '\0';
+                return prefix;
+            }
+        }
+        prefix[prefixLength++] = currentChar;
+    }
+    prefix[prefixLength] = '\0';
+    return prefix;
+}
+int main() {
+    char* strs1[] = {"flower", "flow", "flight"};
+    int strsSize1 = sizeof(strs1) / sizeof(strs1[0]);
+    printf("Longest common prefix: %s\n", longestCommonPrefix(strs1, strsSize1));
+    char* strs2[] = {"dog", "racecar", "car"};
+    int strsSize2 = sizeof(strs2) / sizeof(strs2[0]);
+    printf("Longest common prefix: %s\n", longestCommonPrefix(strs2, strsSize2)); 
+    return 0;
+}
