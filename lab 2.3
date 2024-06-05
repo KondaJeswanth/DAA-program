@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+// Function to demonstrate constant time complexity (O(1))
+void constantTimeFunction(int n) {
+  // This function performs a constant number of operations regardless of the input size (n)
+  printf("This is a constant time operation.\n");
+}
+
+// Function to demonstrate linear time complexity (O(n))
+void linearTimeFunction(int arr[], int size) {
+  int i;
+  for (i = 0; i < size; i++) {
+    // This loop iterates n times, performing an operation each time
+    printf("%d ", arr[i]);
+  }
+  printf("\n");
+}
+
+// Function to demonstrate quadratic time complexity (O(n^2))
+void quadraticTimeFunction(int n) {
+  int i, j;
+  for (i = 0; i < n; i++) {
+    for (j = 0; j < n; j++) {
+      // This nested loop iterates n^2 times, performing an operation each time
+      printf("*");
+    }
+    printf("\n");
+  }
+}
+
+int main() {
+  int n, arr[] = {1, 2, 3, 4, 5};
+
+  // Demonstrate constant time complexity
+  constantTimeFunction(n); // Time complexity: O(1)
+
+  // Demonstrate linear time complexity
+  linearTimeFunction(arr, sizeof(arr) / sizeof(arr[0])); // Time complexity: O(n)
+
+  // Demonstrate quadratic time complexity
+  printf("Enter a value for n: ");
+  scanf("%d", &n);
+  quadraticTimeFunction(n); // Time complexity: O(n^2)
+
+  return 0;
+}
