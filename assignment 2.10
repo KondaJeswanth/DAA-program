@@ -1,0 +1,68 @@
+ #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+// Structure to represent a stack
+struct Stack {
+    char* array;
+    int top;
+};
+
+// Function to initialize the stack
+struct Stack* createStack(int size) {
+    struct Stack* stack = (struct Stack*)malloc(sizeof(struct Stack));
+    stack->array = (char*)malloc(size * sizeof(char));
+    stack->top = -1;
+    return stack;
+}
+
+// Function to push an element onto the stack
+void push(struct Stack* stack, char value) {
+    stack->array[++stack->top] = value;
+}
+
+// Function to pop an element from the stack
+char pop(struct Stack* stack) {
+    return stack->array[stack->top--];
+}
+
+// Function to check if the string of parentheses is valid
+bool isValid(char* s) {
+    struct Stack* stack = createStack(strlen(s));
+    int i = 0;
+    
+    while (s[i] != '\0') {
+        if (s[i] == '(' || s[i] == '[' || s[i] == '{') {
+            push(stack, s[i]);
+        } else {
+            if (stack->top == -1) {
+                return false;
+            }
+            char topElement = pop(stack);
+            if ((s[i] == ')' && topElement != '(') ||
+                (s[i] == ']' && topElement != '[') ||
+                (s[i] == '}' && topElement != '{')) {
+                return false;
+            }
+        }
+        i++;
+    }
+    
+    return stack->top == -1;
+}
+
+int main() {
+    // Example 1
+    char s1[] = "()";
+    printf("Example 1: %s\n", isValid(s1) ? "true" : "false");
+
+    // Example 2
+    char s2[] = "()[]{}";
+    printf("Example 2: %s\n", isValid(s2) ? "true" : "false");
+
+    // Example 3
+    char s3[] = "(]";
+    printf("Example 3: %s\n", isValid(s3) ? "true" : "false");
+
+    return 0;
+}
