@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <string.h>
+int value(char r) {
+    switch(r) {
+        case 'I': return 1;
+        case 'V': return 5;
+        case 'X': return 10;
+        case 'L': return 50;
+        case 'C': return 100;
+        case 'D': return 500;
+        case 'M': return 1000;
+        default: return 0;
+    }
+}
+int romanToInt(char *s) {
+    int total = 0;
+    int prev_value = 0;
+    int length = strlen(s);
+    for(int i = length - 1; i >= 0; i--) {
+        int current_value = value(s[i]);
+        if(current_value < prev_value) {
+            total -= current_value;
+        } else {
+            total += current_value;
+        }
+        prev_value = current_value;
+    }
+    return total;
+}
+int main() {
+    char s1[] = "III";
+    printf("The integer value of %s is: %d\n", s1, romanToInt(s1));
+    char s2[] = "LVIII";
+    printf("The integer value of %s is: %d\n", s2, romanToInt(s2));
+    char s3[] = "MCMXCIV";
+    printf("The integer value of %s is: %d\n", s3, romanToInt(s3));
+    return 0;
+}
