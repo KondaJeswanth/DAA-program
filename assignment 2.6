@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+int threeSumClosest(int* nums, int numsSize, int target) {
+    qsort(nums, numsSize, sizeof(int), compare);
+
+    int closestSum = nums[0] + nums[1] + nums[2]; 
+
+    for (int i = 0; i < numsSize - 2; i++) {
+        int left = i + 1;
+        int right = numsSize - 1;
+
+        while (left < right) {
+            int currentSum = nums[i] + nums[left] + nums[right];
+
+            if (abs(currentSum - target) < abs(closestSum - target)) {
+                closestSum = currentSum;
+            }
+
+            if (currentSum < target) {
+                left++;
+            } else if (currentSum > target) {
+                right--;
+            } else {
+                return currentSum;
+            }
+        }
+    }
+
+    return closestSum;
+}
+
+int main() {
+    int nums1[] = {-1, 2, 1, -4};
+    int target1 = 1;
+    int result1 = threeSumClosest(nums1, sizeof(nums1) / sizeof(nums1[0]), target1);
+    printf("The sum closest to %d is: %d\n", target1, result1);
+
+    int nums2[] = {0, 0, 0};
+    int target2 = 1;
+    int result2 = threeSumClosest(nums2, sizeof(nums2) / sizeof(nums2[0]), target2);
+    printf("The sum closest to %d is: %d\n", target2, result2);
+
+    return 0;
+}
